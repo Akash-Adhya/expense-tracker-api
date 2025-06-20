@@ -1,0 +1,29 @@
+{
+  "name": "expense-tracker-api",
+  "version": "1.0.0",
+  "description": "## Description A simple RESTful API to track income and expense transactions.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akash-Adhya/expense-tracker-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akash-Adhya/expense-tracker-api/issues"
+  },
+  "homepage": "https://github.com/Akash-Adhya/expense-tracker-api#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "mongod": "^2.0.0",
+    "mongoose": "^8.16.0",
+    "mongosh": "^2.5.3"
+  }
+}
