@@ -1,3 +1,5 @@
+// Main server entry point for the Expense Tracker API
+// Responsible for initializing Express app, connecting to MongoDB, and setting up middleware/routes
 
 const express = require('express');
 const mongoose = require('mongoose');
