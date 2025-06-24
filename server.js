@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const transactionRoutes = require('./backend/routes/transactionRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 
 const app = express();
 app.use(cors());
@@ -20,3 +20,5 @@ app.use('/transactions', transactionRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
+module.exports = app

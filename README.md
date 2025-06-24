@@ -181,59 +181,87 @@ http://localhost:5000/api
 | createdAt | Date | Auto | Timestamp of creation |
 | updatedAt | Date | Auto | Timestamp of last update |
 
-## 🧪 API Testing Examples
+## 🧪 API & Model Testing
 
-### Using cURL
+This project includes comprehensive **unit**, **integration**, and **API endpoint** tests using [Jest](https://jestjs.io/) and [Supertest](https://github.com/ladjs/supertest).
 
-**Get all transactions:**
+### Test Types
+
+- **Unit Tests** (`tests/unit/transactionController.test.js`):  
+  Test the controller logic in isolation, including:
+  - Fetching all transactions
+  - Creating a transaction (success and validation error)
+  - Updating and deleting transactions
+  - Error handling for invalid IDs and database errors
+
+- **Integration Tests** (`tests/integration/dbIntegration.test.js`):  
+  Test the Mongoose model with a real MongoDB connection, including:
+  - Saving a valid transaction
+  - Failing to save when required fields are missing
+
+- **API Endpoint Tests** (`tests/api/transactionAPI.test.js`):  
+  Test the full Express API, including:
+  - Creating, fetching, updating, and deleting transactions via HTTP requests
+  - Handling missing fields, invalid IDs, and empty database scenarios
+
+### How to Run Tests
+
 ```bash
-curl -X GET http://localhost:5000/api/transactions
+npm test
+# or
+npx jest
 ```
 
-**Create a new expense:**
-```bash
-curl -X POST http://localhost:5000/api/transactions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "amount": 1200,
-    "category": "Rent",
-    "type": "expense",
-    "note": "Monthly rent payment"
-  }'
+### Example Test Results
+
+Below is a sample output of a successful test run:
+
+```
+> expense-tracker-api@1.0.0 test
+> jest --env=node --coverage
+
+ PASS  tests/unit/transactionController.test.js
+  Transaction Controller - Unit
+    ✓ should fetch all transactions (10 ms)
+    ✓ should create a new transaction (5 ms)
+    ✓ should handle errors when fetching transactions (2 ms)
+    ✓ should handle missing required fields when creating transaction (2 ms)
+    ✓ should update a transaction (3 ms)
+    ✓ should delete a transaction (2 ms)
+    ✓ should handle error on updateTransaction (1 ms)
+    ✓ should handle error on deleteTransaction (1 ms)
+
+ PASS  tests/integration/dbIntegration.test.js
+  Transaction Model - Integration
+    ✓ saves a transaction to the database (30 ms)
+    ✓ should fail validation for missing required fields (4 ms)
+
+ PASS  tests/api/transactionAPI.test.js
+  Transaction API - Endpoints
+    ✓ POST /transactions - should create a transaction (50 ms)
+    ✓ GET /transactions - should fetch transactions (10 ms)
+    ✓ PUT /transactions/:id - should update a transaction (12 ms)
+    ✓ DELETE /transactions/:id - should delete a transaction (8 ms)
+    ✓ POST /transactions - should fail with missing required fields (5 ms)
+    ✓ PUT /transactions/:id - should return 404 for invalid id (4 ms)
+    ✓ DELETE /transactions/:id - should return 404 for invalid id (3 ms)
+    ✓ GET /transactions - should return empty array if no transactions (6 ms)
+
+Test Suites: 3 passed, 3 total
+Tests:       18 passed, 18 total
+Snapshots:   0 total
+Time:        2.345 s
+Ran all test suites.
 ```
 
-**Create a new income:**
-```bash
-curl -X POST http://localhost:5000/api/transactions \
-  -H "Content-Type: application/json" \
-  -d '{
-    "amount": 5000,
-    "category": "Salary",
-    "type": "income",
-    "note": "Monthly salary"
-  }'
-```
+### What These Tests Cover
 
-**Update a transaction:**
-```bash
-curl -X PUT http://localhost:5000/api/transactions/64a7b8c9d1234567890abcde \
-  -H "Content-Type: application/json" \
-  -d '{
-    "amount": 1300,
-    "note": "Updated rent amount"
-  }'
-```
+- **Correctness**: Ensures all CRUD operations work as expected.
+- **Validation**: Checks that invalid data is rejected.
+- **Error Handling**: Verifies the API responds with proper status codes and messages for errors.
+- **Database Integration**: Confirms that the model interacts with MongoDB as intended.
 
-**Delete a transaction:**
-```bash
-curl -X DELETE http://localhost:5000/api/transactions/64a7b8c9d1234567890abcde
-```
-
-### Using Postman or Thunder Client
-
-1. **Import Collection**: Create a new collection in Postman
-2. **Set Base URL**: `http://localhost:5000/api`
-3. **Test Endpoints**: Use the examples above to test each endpoint
+---
 
 ## 🗄️ Database Integration
 

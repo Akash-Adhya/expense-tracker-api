@@ -4,8 +4,14 @@
   "description": "## Description A simple RESTful API to track income and expense transactions.",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --env=node --coverage",
     "start": "node server.js"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "setupFiles": [
+      "dotenv/config"
+    ]
   },
   "repository": {
     "type": "git",
@@ -26,5 +32,9 @@
     "mongod": "^2.0.0",
     "mongoose": "^8.16.0",
     "mongosh": "^2.5.3"
+  },
+  "devDependencies": {
+    "jest": "^30.0.2",
+    "supertest": "^7.1.1"
   }
 }
