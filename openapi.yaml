@@ -1,0 +1,54 @@
+openapi: 3.0.0
+info:
+  title: Expense Tracker API
+  version: 1.0.0
+paths:
+  /transactions:
+    get:
+      summary: Get all transactions
+      responses:
+        '200':
+          description: Returns all transactions
+    post:
+      summary: Create a new transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount: { type: number }
+                category: { type: string }
+                type: { type: string }
+                date: { type: string, format: date-time }
+                note: { type: string }
+              required: [amount, category, type]
+      responses:
+        '201':
+          description: Transaction created
+  /transactions/{id}:
+    put:
+      summary: Update a transaction
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Transaction updated
+    delete:
+      summary: Delete a transaction
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string }
+      responses:
+        '200':
+          description: Transaction deleted
